@@ -1,7 +1,7 @@
 package no.hvl.dat100ptc.oppgave1;
 
-public class karius {
-    public static void baktus(karius) {
+class karius {
+    public static void baktus() {
 /*        TODO Karius og baktus*/
     }
 }
