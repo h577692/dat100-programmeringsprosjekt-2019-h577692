@@ -3,6 +3,9 @@ package no.hvl.dat100ptc.oppgave2;
 import no.hvl.dat100ptc.TODO;
 import no.hvl.dat100ptc.oppgave1.GPSPoint;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+
 public class GPSDataConverter {
 
 	// konverter tidsinformasjon i gps data punkt til antall sekunder fra midnatt
@@ -13,15 +16,13 @@ public class GPSDataConverter {
 	private static int TIME_STARTINDEX = 11; // startindex for tidspunkt i timestr
 
 	public static int toSeconds(String timestr) {
-		
-		//int secs = 0;
-		
-		// TODO - START
-		String[] split = timestr.split("T")[1].split(":");
 
-		int secs = Integer.parseInt(split[0]) * 3600; // sekunder fra timer
-		secs += Integer.parseInt(split[1]) * 60; // sekunder fra minutter
-		secs += Double.parseDouble(split[2].split("Z")[0]); // sekunder fra sekunder
+		// TODO - START
+		String[] time = timestr.split("T")[1].split(":");
+
+		int secs = Integer.parseInt(time[0]) * 3600; // sekunder fra timer
+		secs += Integer.parseInt(time[1]) * 60; // sekunder fra minutter
+		secs += Double.parseDouble(time[2].replace("Z", "")); // sekunder fra sekunder
 
 		// TODO - SLUTT
 		return secs;
@@ -33,12 +34,10 @@ public class GPSDataConverter {
 
 		// TODO - START ;
 
-		GPSPoint gpspoint = new GPSPoint(toSeconds(timeStr),
+		return new GPSPoint(toSeconds(timeStr),
 				Double.parseDouble(latitudeStr),
 				Double.parseDouble(longitudeStr),
 				Double.parseDouble(elevationStr));
-
-		return gpspoint;
 
 		// TODO - SLUTT ;
 	}

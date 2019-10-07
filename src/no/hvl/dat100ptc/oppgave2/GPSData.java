@@ -57,7 +57,7 @@ public class GPSData {
 	}
 
 	public void print() {
-		
+
 		// TODO - START
 
 		var sb = new StringBuilder("====== Konvertert GPS Data - START ======\n");
