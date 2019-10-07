@@ -16,5 +16,6 @@ public class TestKlasse {
     public static void main(String[] args) {
         karius.baktus();
         karius.baktus("hey hey heeeey, bitconneeeeeect");
+        karius.baktus("Tannkrem er viktig");
     }
 }
