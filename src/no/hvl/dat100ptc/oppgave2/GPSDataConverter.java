@@ -21,7 +21,7 @@ public class GPSDataConverter {
 
 		int secs = Integer.parseInt(split[0]) * 3600; // sekunder fra timer
 		secs += Integer.parseInt(split[1]) * 60; // sekunder fra minutter
-		secs += Double.parseDouble(split[2]); // sekunder fra sekunder
+		secs += Double.parseDouble(split[2].split("Z")[0]); // sekunder fra sekunder
 
 		// TODO - SLUTT
 		return secs;
