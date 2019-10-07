@@ -15,6 +15,6 @@ class karius {
 public class TestKlasse {
     public static void main(String[] args) {
         karius.baktus();
-        karius.baktus("Girl, this aint it chief");
+        karius.baktus("Girl, this is it.");
     }
 }
