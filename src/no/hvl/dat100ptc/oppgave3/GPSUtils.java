@@ -109,23 +109,11 @@ public class GPSUtils {
 
 		// TODO - START
 
-		String TIMESP = ":";
+		return String.format("  %02d:%02d:%02d", secs / 3600, // timer
+				secs % 3600 / 60, // minutter
+				secs % 60); // sekunder
 
-		int h = secs / 3600;
-		int m = secs % 3600 / 60;
-		int s = secs % 60;
-
-		return "  " + addChars(h, 2, "0") + TIMESP + addChars(m, 2, "0") + TIMESP + addChars(s, 2, "0");
-		
 		// TODO - SLUTT
-	}
-
-	private static String addChars(int num, int length, String c) {
-		return c.repeat(length - String.valueOf(num).length()) + num;
-	}
-
-	private static String addChars(double num, int length, String c) {
-		return c.repeat(length - String.valueOf(num).length()) + num;
 	}
 
 	private static int TEXTWIDTH = 10;
@@ -136,11 +124,8 @@ public class GPSUtils {
 
 		d = Math.round(d * 100) / 100.0;
 
-		//return " ".repeat(10 - String.valueOf(d).length()) + d;
-
-		return addChars(d, TEXTWIDTH, " ");
+		return " ".repeat(TEXTWIDTH - String.valueOf(d).length()) + d;
 
 		// TODO - SLUTT
-		
 	}
 }
