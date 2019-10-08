@@ -39,6 +39,7 @@ public class GPSDataConverter {
 				Double.parseDouble(longitudeStr),
 				Double.parseDouble(elevationStr));
 
+
 		// TODO - SLUTT ;
 	}
 }

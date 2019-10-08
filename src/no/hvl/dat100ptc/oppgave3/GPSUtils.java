@@ -24,11 +24,12 @@ public class GPSUtils {
 
 	public static double findMin(double[] da) {
 
-		double min;
-
 		// TODO - START
 
-		throw new UnsupportedOperationException(TODO.method());
+		double min = da[0];
+		for (double d : da) if (d < min) min = d;
+
+		return min;
 
 		// TODO - SLUT
 
@@ -38,7 +39,12 @@ public class GPSUtils {
 
 		// TODO - START
 		
-		throw new UnsupportedOperationException(TODO.method());
+		var latitudes = new double[gpspoints.length];
+		for (int i = 0; i < gpspoints.length; i++) {
+			latitudes[i] = gpspoints[i].getLatitude();
+		}
+
+		return latitudes;
 		
 		// TODO - SLUTT
 	}
@@ -47,7 +53,12 @@ public class GPSUtils {
 
 		// TODO - START
 
-		throw new UnsupportedOperationException(TODO.method());
+		var longitudes = new double[gpspoints.length];
+		for (int i = 0; i < gpspoints.length; i++) {
+			longitudes[i] = gpspoints[i].getLongitude();
+		}
+
+		return longitudes;
 		
 		// TODO - SLUTT
 
@@ -57,42 +68,62 @@ public class GPSUtils {
 
 	public static double distance(GPSPoint gpspoint1, GPSPoint gpspoint2) {
 
-		double d;
-		double latitude1, longitude1, latitude2, longitude2;
-
 		// TODO - START
 
-		throw new UnsupportedOperationException(TODO.method());
+		double latitude1 = Math.toRadians(gpspoint1.getLatitude());
+		double longitude1 = Math.toRadians(gpspoint1.getLongitude());
+		double latitude2 = Math.toRadians(gpspoint2.getLatitude());
+		double longitude2 = Math.toRadians(gpspoint2.getLongitude());
+
+		return 2 * R * Math.asin(Math.sqrt(Math.pow(Math.sin((latitude2 - latitude1)/2.0), 2) +
+						Math.cos(latitude1)*Math.cos(latitude2) * Math.pow(Math.sin((longitude2 - longitude1)/2),2)));
 
 		// TODO - SLUTT
-
 	}
 
 	public static double speed(GPSPoint gpspoint1, GPSPoint gpspoint2) {
 
-		int secs;
-		double speed;
+		// definisjon fart: delta(s)/delta(t)
+
+		/*
+		m/s * 3.6 = km/t
+		 */
 
 		// TODO - START
 
-		throw new UnsupportedOperationException(TODO.method());
+		double strekning = distance(gpspoint1, gpspoint2);
+		double tid = gpspoint2.getTime() - gpspoint1.getTime();
+
+		return strekning / tid * 3.6;
 
 		// TODO - SLUTT
-
 	}
 
+	/*
+	som returnerer en streng på formatet hh:mm:ss der tiden i sekunder fra midnatt er gitt av parameteren secs.
+	I strengen på formatet hh:mm:ss er hh er antall timer, mm er antall minutter og ss er antall sekunder.
+	Videre skal metoden legge inn mellomrom foran tiden slik den total lengden på strengen blir 10.
+	Hint: se på format-metoden i String-klassen.`
+	 */
 	public static String formatTime(int secs) {
 
-		String timestr;
-		String TIMESEP = ":";
-
 		// TODO - START
 
-		throw new UnsupportedOperationException(TODO.method());
+		String TIMESP = ":";
+
+		int h = secs / 3600;
+		int m = secs % 3600 / 60;
+		int s = secs % 60;
+
+		return "  " + addZeros(h, 2) + TIMESP + addZeros(m, 2) + TIMESP + addZeros(s, 2);
 		
 		// TODO - SLUTT
-
 	}
+
+	private static String addZeros(int num, int length) {
+		return "0".repeat(length - String.valueOf(num).length()) + num;
+	}
+
 	private static int TEXTWIDTH = 10;
 
 	public static String formatDouble(double d) {
