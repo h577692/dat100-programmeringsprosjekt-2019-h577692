@@ -115,24 +115,30 @@ public class GPSUtils {
 		int m = secs % 3600 / 60;
 		int s = secs % 60;
 
-		return "  " + addZeros(h, 2) + TIMESP + addZeros(m, 2) + TIMESP + addZeros(s, 2);
+		return "  " + addChars(h, 2, "0") + TIMESP + addChars(m, 2, "0") + TIMESP + addChars(s, 2, "0");
 		
 		// TODO - SLUTT
 	}
 
-	private static String addZeros(int num, int length) {
-		return "0".repeat(length - String.valueOf(num).length()) + num;
+	private static String addChars(int num, int length, String c) {
+		return c.repeat(length - String.valueOf(num).length()) + num;
+	}
+
+	private static String addChars(double num, int length, String c) {
+		return c.repeat(length - String.valueOf(num).length()) + num;
 	}
 
 	private static int TEXTWIDTH = 10;
 
 	public static String formatDouble(double d) {
 
-		String str;
-
 		// TODO - START
 
-		throw new UnsupportedOperationException(TODO.method());
+		d = Math.round(d * 100) / 100.0;
+
+		//return " ".repeat(10 - String.valueOf(d).length()) + d;
+
+		return addChars(d, TEXTWIDTH, " ");
 
 		// TODO - SLUTT
 		
