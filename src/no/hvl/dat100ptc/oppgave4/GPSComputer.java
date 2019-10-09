@@ -25,7 +25,7 @@ public class GPSComputer {
 	public GPSPoint[] getGPSPoints() {
 		return this.gpspoints;
 	}
-	
+
 	// beregn total distances (i meter)
 	public double totalDistance() {
 
@@ -33,7 +33,11 @@ public class GPSComputer {
 
 		// TODO - START
 
-		throw new UnsupportedOperationException(TODO.method());
+		for (int i = 0; i < gpspoints.length - 1; i++) {
+			distance += GPSUtils.distance(gpspoints[i], gpspoints[i+1]);
+		}
+
+		return distance;
 
 		// TODO - SLUTT
 
@@ -42,11 +46,17 @@ public class GPSComputer {
 	// beregn totale høydemeter (i meter)
 	public double totalElevation() {
 
-		double elevation = 0;
+		double deltaElevation;
 
 		// TODO - START
 
-		throw new UnsupportedOperationException(TODO.method());
+		double hoeydeMeter = 0;
+		for (int i = 0; i < gpspoints.length - 1; i++) {
+			deltaElevation = gpspoints[i+1].getElevation() - gpspoints[i].getElevation();
+			if (deltaElevation > 0) hoeydeMeter += deltaElevation;
+		}
+
+		return hoeydeMeter;
 
 		// TODO - SLUTT
 
@@ -55,15 +65,26 @@ public class GPSComputer {
 	// beregn total tiden for hele turen (i sekunder)
 	public int totalTime() {
 
-		throw new UnsupportedOperationException(TODO.method());
+		// TODO - START
 
+		return gpspoints[gpspoints.length -1].getTime() - gpspoints[0].getTime();
+
+		// TODO - SLUTT
 	}
+
+	/*
+	som skal returnere en tabell med gjennomsnitshastigheter mellom hver av de punktene vi har beveget oss mellom.
+	Dvs. første inngang i tabellen skal være hastigheten vi beveget oss med mellom punkt 0 og punkt 1,
+	andre inngang hastigheten mellom punkt 1 og 2 osv. Hvis antall GPS datapunker er N
+	da vil lengden av den tabellen som returneres være N-1.
+	 */
 		
 	// beregn gjennomsnitshastighets mellom hver av gps punktene
-
 	public double[] speeds() {
 		
 		// TODO - START		// OPPGAVE - START
+
+
 		
 		throw new UnsupportedOperationException(TODO.method());
 

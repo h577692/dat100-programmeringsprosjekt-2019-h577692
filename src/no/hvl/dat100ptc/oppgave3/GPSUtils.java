@@ -99,19 +99,14 @@ public class GPSUtils {
 		// TODO - SLUTT
 	}
 
-	/*
-	som returnerer en streng på formatet hh:mm:ss der tiden i sekunder fra midnatt er gitt av parameteren secs.
-	I strengen på formatet hh:mm:ss er hh er antall timer, mm er antall minutter og ss er antall sekunder.
-	Videre skal metoden legge inn mellomrom foran tiden slik den total lengden på strengen blir 10.
-	Hint: se på format-metoden i String-klassen.`
-	 */
 	public static String formatTime(int secs) {
 
 		// TODO - START
 
-		return String.format("  %02d:%02d:%02d", secs / 3600, // timer
-				secs % 3600 / 60, // minutter
-				secs % 60); // sekunder
+		return String.format("  %02d:%02d:%02d",
+				secs / 3600, 		// timer
+				secs % 3600 / 60,   // minutter
+				secs % 60); 		// sekunder
 
 		// TODO - SLUTT
 	}
@@ -124,7 +119,7 @@ public class GPSUtils {
 
 		d = Math.round(d * 100) / 100.0;
 
-		return " ".repeat(TEXTWIDTH - String.valueOf(d).length()) + d;
+		return " ".repeat(TEXTWIDTH - Double.toString(d).length()) + d;
 
 		// TODO - SLUTT
 	}
