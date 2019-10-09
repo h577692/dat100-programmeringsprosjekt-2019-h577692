@@ -1,9 +1,7 @@
 package no.hvl.dat100ptc.oppgave4;
 
-import no.hvl.dat100ptc.TODO;
 import no.hvl.dat100ptc.oppgave1.GPSPoint;
 import no.hvl.dat100ptc.oppgave2.GPSData;
-import no.hvl.dat100ptc.oppgave2.GPSDataConverter;
 import no.hvl.dat100ptc.oppgave2.GPSDataFileReader;
 import no.hvl.dat100ptc.oppgave3.GPSUtils;
 
@@ -80,40 +78,42 @@ public class GPSComputer {
 	 */
 		
 	// beregn gjennomsnitshastighets mellom hver av gps punktene
-	public double[] speeds() {
-		
-		// TODO - START		// OPPGAVE - START
-
-
-		
-		throw new UnsupportedOperationException(TODO.method());
-
-		// TODO - SLUTT
-
-	}
-	
-	public double maxSpeed() {
-		
-		double maxspeed = 0;
+	public double[] speeds() { // km/h
 		
 		// TODO - START
+
+		var speeds = new double[gpspoints.length - 1];
+
+		for (int i = 0; i < speeds.length; i++) {
+			speeds[i] = GPSUtils.speed(gpspoints[i], gpspoints[i+1]);
+		}
+
+		return speeds;
+
+		// TODO - SLUTT
+	}
+	
+	public double maxSpeed() { // km/h
+
+		double maxSpeed = 0;
 		
-		throw new UnsupportedOperationException(TODO.method());
+		// TODO - START
+
+		for (var speed : speeds())
+			if (speed > maxSpeed) maxSpeed = speed;
+
+		return maxSpeed;
 		
 		// TODO - SLUTT
-		
 	}
 
 	public double averageSpeed() {
 
-		double average = 0;
-		
 		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.method());
+
+		return totalDistance() / (double)totalTime() * 3.6; // feil i test
 		
 		// TODO - SLUTT
-		
 	}
 
 	/*
@@ -131,44 +131,87 @@ public class GPSComputer {
 	// beregn kcal gitt weight og tid der kjøres med en gitt hastighet
 	public double kcal(double weight, int secs, double speed) {
 
-		double kcal;
-
-		// MET: Metabolic equivalent of task angir (kcal x kg-1 x h-1)
-		double met = 0;		
-		double speedmph = speed * MS;
-
 		// TODO - START
 		
-		throw new UnsupportedOperationException(TODO.method());
+		return met(speed) * weight * secs/3600.0;
 
 		// TODO - SLUTT
-		
 	}
+
+	private double met(double speed) {
+
+		double mph = speed * 0.62;
+
+		if (mph < 10) return 4.0;
+		if (mph >= 10 && mph <= 12) return 6.0;
+		if (mph >= 12 && mph <= 14) return 8.0;
+		if (mph >= 14 && mph <= 16) return 10.0;
+		if (mph >= 16 && mph <= 20) return 12.0;
+		return 16.0;
+	}
+
+	/*
+Hastighet	MET
+<10 mph	4.0
+10-12 mph	6.0
+12-14 mph	8.0
+14-16 mph	10.0
+16-20 mph	12.0
+>20 mph	16.0
+	 */
 
 	public double totalKcal(double weight) {
 
-		double totalkcal = 0;
-
 		// TODO - START
+
+		double kcal = 0;
+
+		for (int i = 0; i < gpspoints.length - 1; i++) {
+			kcal += kcal(weight, gpspoints[i+1].getTime() - gpspoints[i].getTime(), speeds()[i]);
+		}
 		
-		throw new UnsupportedOperationException(TODO.method());
+		return kcal;
 
 		// TODO - SLUTT
-		
 	}
 	
 	private static double WEIGHT = 80.0;
+
+
+	/*
+	==============================================
+	Total Time     :   00:36:35
+	Total distance :      13.74 km
+	Total elevation:     210.60 m
+	Max speed      :      47.98 km/t
+	Average speed  :      22.54 km/t
+	Energy         :     742.80 kcal
+	==============================================
+	 */
+
+	private static final int WIDTH = 17;
+	private static final String SEP = ":";
 	
 	public void displayStatistics() {
 
-		System.out.println("==============================================");
+
+		System.out.println("==============================================" +
+				formatString("\nTotal Time") + SEP + GPSUtils.formatTime(totalTime()) +
+				formatString("\nTotal distance") + SEP + GPSUtils.formatDouble(totalDistance()) + " km" +
+				formatString("\nTotal elevation") + SEP + GPSUtils.formatDouble(totalElevation()) + " m" +
+				formatString("\nMax speed") + SEP + GPSUtils.formatDouble(maxSpeed()) + " km/h" +
+				formatString("\nAverage speed") + SEP + GPSUtils.formatDouble(averageSpeed()) + " km/h" +
+				formatString("\nEnergy") + SEP + GPSUtils.formatDouble(totalKcal(WEIGHT)) + " kcal" +
+				"\n==============================================");
 
 		// TODO - START
 
-		throw new UnsupportedOperationException(TODO.method());
 		
 		// TODO - SLUTT
-		
+	}
+
+	private static String formatString(String s) {
+		return s + " ".repeat(WIDTH - s.length());
 	}
 
 }

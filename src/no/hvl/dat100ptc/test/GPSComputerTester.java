@@ -82,8 +82,7 @@ public class GPSComputerTester {
 	
 	@Test
 	public void testtotalkcal () {
-		assertEquals(24.89,gpscomp.totalKcal(80.0),0.01);
-		
+		assertEquals(28.44,gpscomp.totalKcal(80.0),0.01);
 	}
 	
 	@Test
