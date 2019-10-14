@@ -106,7 +106,28 @@ public class GPSComputer {
 		// TODO - SLUTT
 	}
 
-	public double averageSpeed() { // km/h
+    public double[] climbs() { // prosent
+
+	    // stigningsprosent = stigning / lengde * 100
+        var climbs = new double[gpspoints.length - 1];
+        for (int i = 0; i < gpspoints.length - 1; i++) {
+            climbs[i] = gpspoints[i+1].getElevation() - gpspoints[i].getElevation() /
+                    GPSUtils.distance(gpspoints[i], gpspoints[i+1]) * 100;
+        }
+
+        return climbs;
+    }
+
+    public double maxClimb() { // prosent
+
+	    double max = 0.0;
+	    for (var climb : climbs()) {
+	        if (climb > max) max = climb;
+        }
+	    return max;
+    }
+
+    public double averageSpeed() { // km/h
 
 		// TODO - START
 
@@ -169,18 +190,20 @@ public class GPSComputer {
 	private static final int WIDTH = 17;
 	private static final String SEP = ":";
 	
-	public void displayStatistics() {
+	public String displayStatistics() {
 
 		// TODO - START
 
-		System.out.println("==============================================" +
+		String stats = "==============================================" +
 				formatString("\nTotal Time") + SEP + GPSUtils.formatTime(totalTime()) +
 				formatString("\nTotal distance") + SEP + GPSUtils.formatDouble(totalDistance()) + " km" +
 				formatString("\nTotal elevation") + SEP + GPSUtils.formatDouble(totalElevation()) + " m" +
 				formatString("\nMax speed") + SEP + GPSUtils.formatDouble(maxSpeed()) + " km/h" +
 				formatString("\nAverage speed") + SEP + GPSUtils.formatDouble(averageSpeed()) + " km/h" +
 				formatString("\nEnergy") + SEP + GPSUtils.formatDouble(totalKcal(WEIGHT)) + " kcal" +
-				"\n==============================================");
+				"\n==============================================";
+        System.out.println(stats);
+		return stats;
 
 		// TODO - SLUTT
 	}

@@ -9,6 +9,7 @@ import no.hvl.dat100ptc.oppgave2.GPSDataFileReader;
 import no.hvl.dat100ptc.oppgave4.GPSComputer;
 
 import javax.swing.JOptionPane;
+import java.awt.*;
 
 public class ShowProfile extends EasyGraphics {
 
@@ -42,14 +43,29 @@ public class ShowProfile extends EasyGraphics {
 		showHeightProfile(MARGIN + MAXBARHEIGHT); 
 	}
 
+	// ybase indicates the position on the y-axis where the columns should start
 	public void showHeightProfile(int ybase) {
 
-		// ybase indicates the position on the y-axis where the columns should start
-		
 		// TODO - START
 
-		throw new UnsupportedOperationException(TODO.method());
-	
+		System.out.println("Angi tidsskalering i tegnevinduet ...");
+		int timescaling = Integer.parseInt(getText("Tidsskalering"));
+
+		setColor(Color.blue);
+
+		var x = MARGIN;
+		int elevation;
+		for (int i = 0; i < gpspoints.length; i++) {
+			if (gpspoints[i].getElevation() > 0) elevation = (int)gpspoints[i].getElevation();
+			else elevation = 0;
+
+			drawLine(x, ybase, x, ybase - elevation);
+			x += 2;
+			if (i < gpspoints.length - 1) {
+				pause((gpspoints[i+1].getTime() - gpspoints[i].getTime()) * 1000 / timescaling);
+			}
+		}
+
 		// TODO - SLUTT
 	}
 

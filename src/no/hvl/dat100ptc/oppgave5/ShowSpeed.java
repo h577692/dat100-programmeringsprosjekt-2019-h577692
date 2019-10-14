@@ -10,6 +10,8 @@ import no.hvl.dat100ptc.oppgave2.GPSDataFileReader;
 import no.hvl.dat100ptc.oppgave3.GPSUtils;
 import no.hvl.dat100ptc.oppgave4.GPSComputer;
 
+import java.awt.*;
+
 public class ShowSpeed extends EasyGraphics {
 			
 	private static int MARGIN = 50;
@@ -47,8 +49,19 @@ public class ShowSpeed extends EasyGraphics {
 		int timescaling = Integer.parseInt(getText("Tidsskalering"));
 				
 		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.method());
+
+		setColor(Color.blue);
+
+		var x = MARGIN;
+		int speed;
+		for (int i = 0; i < gpscomputer.speeds().length; i++) {
+			if (gpscomputer.speeds()[i] > 0) speed = (int)gpscomputer.speeds()[i];
+			else speed = 0;
+			drawLine(x, ybase, x, ybase - speed);
+			x += 2;
+		}
+		setColor(Color.green);
+		fillRectangle(MARGIN, ybase - (int)gpscomputer.averageSpeed(), N * 2, 2);
 	
 		// TODO - SLUTT
 	}
