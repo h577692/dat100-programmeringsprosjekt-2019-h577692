@@ -1,8 +1,10 @@
 package no.hvl.dat100ptc.oppgave2;
 
-import java.io.*;
-
 import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class GPSDataFileReader {
 

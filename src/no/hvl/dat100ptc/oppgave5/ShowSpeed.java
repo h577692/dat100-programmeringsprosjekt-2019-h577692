@@ -1,15 +1,10 @@
 package no.hvl.dat100ptc.oppgave5;
 
-import javax.swing.JOptionPane;
-
 import easygraphics.EasyGraphics;
-import no.hvl.dat100ptc.TODO;
 import no.hvl.dat100ptc.oppgave1.GPSPoint;
-import no.hvl.dat100ptc.oppgave2.GPSData;
-import no.hvl.dat100ptc.oppgave2.GPSDataFileReader;
-import no.hvl.dat100ptc.oppgave3.GPSUtils;
 import no.hvl.dat100ptc.oppgave4.GPSComputer;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class ShowSpeed extends EasyGraphics {

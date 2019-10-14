@@ -1,14 +1,12 @@
 package no.hvl.dat100ptc.oppgave6;
 
-import javax.swing.JOptionPane;
-
-import easygraphics.*;
+import easygraphics.EasyGraphics;
 import no.hvl.dat100ptc.TODO;
 import no.hvl.dat100ptc.oppgave1.GPSPoint;
-import no.hvl.dat100ptc.oppgave2.GPSData;
-import no.hvl.dat100ptc.oppgave2.GPSDataFileReader;
 import no.hvl.dat100ptc.oppgave3.GPSUtils;
 import no.hvl.dat100ptc.oppgave4.GPSComputer;
+
+import javax.swing.*;
 
 public class CycleComputer extends EasyGraphics {
 

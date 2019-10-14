@@ -1,8 +1,5 @@
 package no.hvl.dat100ptc.oppgave3;
 
-import static java.lang.Math.*;
-
-import no.hvl.dat100ptc.TODO;
 import no.hvl.dat100ptc.oppgave1.GPSPoint;
 
 public class GPSUtils {

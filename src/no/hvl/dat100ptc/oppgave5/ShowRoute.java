@@ -1,13 +1,11 @@
 package no.hvl.dat100ptc.oppgave5;
 
-import javax.swing.JOptionPane;
-
 import easygraphics.EasyGraphics;
-import no.hvl.dat100ptc.TODO;
 import no.hvl.dat100ptc.oppgave1.GPSPoint;
 import no.hvl.dat100ptc.oppgave3.GPSUtils;
 import no.hvl.dat100ptc.oppgave4.GPSComputer;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class ShowRoute extends EasyGraphics {

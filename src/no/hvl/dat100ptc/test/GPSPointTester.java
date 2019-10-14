@@ -1,11 +1,10 @@
 package no.hvl.dat100ptc.test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import no.hvl.dat100ptc.oppgave1.GPSPoint;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import no.hvl.dat100ptc.oppgave1.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GPSPointTester {
 

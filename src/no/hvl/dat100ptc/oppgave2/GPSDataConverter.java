@@ -1,10 +1,6 @@
 package no.hvl.dat100ptc.oppgave2;
 
-import no.hvl.dat100ptc.TODO;
 import no.hvl.dat100ptc.oppgave1.GPSPoint;
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 
 public class GPSDataConverter {
 
@@ -36,7 +32,7 @@ public class GPSDataConverter {
 				Double.parseDouble(latitudeStr),
 				Double.parseDouble(longitudeStr),
 				Double.parseDouble(elevationStr));
-		
+
 		// TODO - SLUTT ;
 	}
 }

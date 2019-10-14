@@ -68,13 +68,6 @@ public class GPSComputer {
 
 		// TODO - SLUTT
 	}
-
-	/*
-	som skal returnere en tabell med gjennomsnitshastigheter mellom hver av de punktene vi har beveget oss mellom.
-	Dvs. første inngang i tabellen skal være hastigheten vi beveget oss med mellom punkt 0 og punkt 1,
-	andre inngang hastigheten mellom punkt 1 og 2 osv. Hvis antall GPS datapunker er N
-	da vil lengden av den tabellen som returneres være N-1.
-	 */
 		
 	// beregn gjennomsnitshastighets mellom hver av gps punktene
 	public double[] speeds() { // km/h

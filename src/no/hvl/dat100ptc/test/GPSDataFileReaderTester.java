@@ -1,12 +1,10 @@
 package no.hvl.dat100ptc.test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.BeforeEach;
+import no.hvl.dat100ptc.oppgave2.GPSData;
 import org.junit.jupiter.api.Test;
 
-import no.hvl.dat100ptc.oppgave2.GPSData;
-import static no.hvl.dat100ptc.oppgave2.GPSDataFileReader.*;
+import static no.hvl.dat100ptc.oppgave2.GPSDataFileReader.readGPSFile;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GPSDataFileReaderTester {
 
