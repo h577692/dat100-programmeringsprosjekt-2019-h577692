@@ -18,15 +18,13 @@ public class GPSDataConverter {
 	public static int toSeconds(String timestr) {
 
 		// TODO - START
-		String[] time = timestr.split("T")[1].split(":");
-
-		int secs = Integer.parseInt(time[0]) * 3600; // sekunder fra timer
-		secs += Integer.parseInt(time[1]) * 60; // sekunder fra minutter
-		secs += Double.parseDouble(time[2].replace("Z", "")); // sekunder fra sekunder
+		var timestamp = timestr.split("T")[1].split("\\.")[0].split(":");
+		int seconds = Integer.parseInt(timestamp[0]) * 3600;
+		seconds += Integer.parseInt(timestamp[1]) * 60;
+		seconds += Integer.parseInt(timestamp[2]);
+		return seconds;
 
 		// TODO - SLUTT
-		return secs;
-		
 	}
 
 	// convert("2017-08-13T08:52:26.000Z","60.385390","5.217217","61.9")
@@ -38,8 +36,7 @@ public class GPSDataConverter {
 				Double.parseDouble(latitudeStr),
 				Double.parseDouble(longitudeStr),
 				Double.parseDouble(elevationStr));
-
-
+		
 		// TODO - SLUTT ;
 	}
 }

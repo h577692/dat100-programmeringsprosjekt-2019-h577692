@@ -24,16 +24,14 @@ public class GPSData {
 	
 	protected boolean insertGPS(GPSPoint gpspoint) {
 
-		boolean inserted = false;
-
 		// TODO - START
 
 		if (antall < gpspoints.length) {
 			gpspoints[antall] = gpspoint;
 			antall++;
-			inserted = true;
+			return true;
 		}
-		return inserted;
+		return false;
 
 		// TODO - SLUTT
 	}
@@ -66,10 +64,9 @@ public class GPSData {
 			sb.append(point.toString());
 		}
 
-		// TODO - SLUTT
-		
 		sb.append("====== Konvertert GPS Data - SLUTT ======");
 		System.out.println(sb.toString());
 
+		// TODO - SLUTT
 	}
 }

@@ -9,16 +9,10 @@ public class GPSUtils {
 
 	public static double findMax(double[] da) {
 
-		double max; 
+		double max = da[0];
 		
-		max = da[0];
-		
-		for (double d : da) {
-			if (d > max) {
-				max = d;
-			}
-		}
-		
+		for (double d : da) if (d > max) max = d;
+
 		return max;
 	}
 
@@ -27,12 +21,12 @@ public class GPSUtils {
 		// TODO - START
 
 		double min = da[0];
+
 		for (double d : da) if (d < min) min = d;
 
 		return min;
 
 		// TODO - SLUT
-
 	}
 
 	public static double[] getLatitudes(GPSPoint[] gpspoints) {
@@ -54,9 +48,9 @@ public class GPSUtils {
 		// TODO - START
 
 		var longitudes = new double[gpspoints.length];
-		for (int i = 0; i < gpspoints.length; i++) {
+
+		for (int i = 0; i < gpspoints.length; i++)
 			longitudes[i] = gpspoints[i].getLongitude();
-		}
 
 		return longitudes;
 		
@@ -83,18 +77,12 @@ public class GPSUtils {
 
 	public static double speed(GPSPoint gpspoint1, GPSPoint gpspoint2) {
 
-		// definisjon fart: delta(s)/delta(t)
-
-		/*
-		m/s * 3.6 = km/t
-		 */
+		// definisjon gjennomsnittsfart: delta(s)/delta(t)
 
 		// TODO - START
 
-		double strekning = distance(gpspoint1, gpspoint2);
-		double tid = gpspoint2.getTime() - gpspoint1.getTime();
-
-		return strekning / tid * 3.6;
+		return distance(gpspoint1, gpspoint2) /
+				(gpspoint2.getTime() - gpspoint1.getTime()) * 3.6;
 
 		// TODO - SLUTT
 	}

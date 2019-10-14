@@ -27,9 +27,9 @@ public class GPSComputer {
 	// beregn total distances (i meter)
 	public double totalDistance() {
 
-		double distance = 0;
-
 		// TODO - START
+
+		double distance = 0;
 
 		for (int i = 0; i < gpspoints.length - 1; i++) {
 			distance += GPSUtils.distance(gpspoints[i], gpspoints[i+1]);
@@ -38,20 +38,19 @@ public class GPSComputer {
 		return distance;
 
 		// TODO - SLUTT
-
 	}
 
 	// beregn totale høydemeter (i meter)
 	public double totalElevation() {
 
-		double deltaElevation;
-
 		// TODO - START
 
 		double hoeydeMeter = 0;
+
 		for (int i = 0; i < gpspoints.length - 1; i++) {
-			deltaElevation = gpspoints[i+1].getElevation() - gpspoints[i].getElevation();
-			if (deltaElevation > 0) hoeydeMeter += deltaElevation;
+			if (gpspoints[i+1].getElevation() > gpspoints[i].getElevation()) {
+				hoeydeMeter += gpspoints[i+1].getElevation() - gpspoints[i].getElevation();
+			}
 		}
 
 		return hoeydeMeter;
@@ -95,9 +94,9 @@ public class GPSComputer {
 	
 	public double maxSpeed() { // km/h
 
-		double maxSpeed = 0;
-		
 		// TODO - START
+
+		double maxSpeed = 0;
 
 		for (var speed : speeds())
 			if (speed > maxSpeed) maxSpeed = speed;
@@ -107,11 +106,11 @@ public class GPSComputer {
 		// TODO - SLUTT
 	}
 
-	public double averageSpeed() {
+	public double averageSpeed() { // km/h
 
 		// TODO - START
 
-		return totalDistance() / (double)totalTime() * 3.6; // feil i test
+		return totalDistance() / (double)totalTime() * 3.6;
 		
 		// TODO - SLUTT
 	}
@@ -150,26 +149,16 @@ public class GPSComputer {
 		return 16.0;
 	}
 
-	/*
-Hastighet	MET
-<10 mph	4.0
-10-12 mph	6.0
-12-14 mph	8.0
-14-16 mph	10.0
-16-20 mph	12.0
->20 mph	16.0
-	 */
-
 	public double totalKcal(double weight) {
 
 		// TODO - START
 
 		double kcal = 0;
 
-		for (int i = 0; i < gpspoints.length - 1; i++) {
+		for (int i = 0; i < speeds().length; i++) {
 			kcal += kcal(weight, gpspoints[i+1].getTime() - gpspoints[i].getTime(), speeds()[i]);
 		}
-		
+
 		return kcal;
 
 		// TODO - SLUTT
@@ -177,23 +166,12 @@ Hastighet	MET
 	
 	private static double WEIGHT = 80.0;
 
-
-	/*
-	==============================================
-	Total Time     :   00:36:35
-	Total distance :      13.74 km
-	Total elevation:     210.60 m
-	Max speed      :      47.98 km/t
-	Average speed  :      22.54 km/t
-	Energy         :     742.80 kcal
-	==============================================
-	 */
-
 	private static final int WIDTH = 17;
 	private static final String SEP = ":";
 	
 	public void displayStatistics() {
 
+		// TODO - START
 
 		System.out.println("==============================================" +
 				formatString("\nTotal Time") + SEP + GPSUtils.formatTime(totalTime()) +
@@ -204,9 +182,6 @@ Hastighet	MET
 				formatString("\nEnergy") + SEP + GPSUtils.formatDouble(totalKcal(WEIGHT)) + " kcal" +
 				"\n==============================================");
 
-		// TODO - START
-
-		
 		// TODO - SLUTT
 	}
 
