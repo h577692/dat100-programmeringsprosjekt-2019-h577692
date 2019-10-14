@@ -90,9 +90,6 @@ public class ShowRoute extends EasyGraphics {
 			x = (GPSUtils.getLongitudes(gpspoints)[i] - maxlon) * xstep + MAPXSIZE + MARGIN;
 			y = (GPSUtils.getLatitudes(gpspoints)[i] - maxlat) * ystep + MAPYSIZE + MARGIN + STATSSIZE;
 			cords[i] = new Cord((int)x, (int)y);
-
-			//System.out.println(y);
-			//fillCircle((int)x, (int)y, 5);
 		}
 
 		for (int i = 0; i < cords.length; i++) {
@@ -104,10 +101,6 @@ public class ShowRoute extends EasyGraphics {
 
 		// TODO - START
 	}
-
-//	private Cord[] getCords(double[] x, double[] y) {
-//		var cords = new Cord()
-//	}
 
 	class Cord {
 		public int x;

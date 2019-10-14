@@ -59,6 +59,7 @@ public class ShowSpeed extends EasyGraphics {
 			else speed = 0;
 			drawLine(x, ybase, x, ybase - speed);
 			x += 2;
+			pause((gpspoints[i+1].getTime() - gpspoints[i].getTime()) * 1000 / timescaling);
 		}
 		setColor(Color.green);
 		fillRectangle(MARGIN, ybase - (int)gpscomputer.averageSpeed(), N * 2, 2);
