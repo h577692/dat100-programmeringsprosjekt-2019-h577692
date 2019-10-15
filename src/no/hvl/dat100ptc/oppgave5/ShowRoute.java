@@ -32,7 +32,6 @@ public class ShowRoute extends EasyGraphics {
 
 		String filename = JOptionPane.showInputDialog("GPS data filnavn: ");
 		gpscomputer = new GPSComputer(filename);
-
 		gpspoints = gpscomputer.getGPSPoints();
 
 		maxlon = GPSUtils.findMax(GPSUtils.getLongitudes(gpspoints));
@@ -42,8 +41,7 @@ public class ShowRoute extends EasyGraphics {
 
 		xstep = xstep();
 		ystep = ystep();
-
-		cords = getCords();
+		cords = cords();
 	}
 
 	public static void main(String[] args) {
@@ -75,7 +73,6 @@ public class ShowRoute extends EasyGraphics {
 		return MAPYSIZE / (Math.abs(maxlat - minlat));
 
 		// TODO - SLUTT
-		
 	}
 
 	public void showRouteMap() {
@@ -86,15 +83,17 @@ public class ShowRoute extends EasyGraphics {
 
 		for (int i = 0; i < cords.length; i++) {
 			fillCircle(cords[i].x, cords[i].y, 5);
-			if (i < cords.length-1) {
-				drawLine(cords[i].x, cords[i].y, cords[i+1].x, cords[i+1].y);
-			}
+			if (i >= cords.length - 1) continue;
+			if (gpspoints[i + 1].getElevation() - gpspoints[i].getElevation() > 0) {
+				setColor(Color.red);
+			} else setColor(Color.green);
+			drawLine(cords[i].x, cords[i].y, cords[i + 1].x, cords[i + 1].y);
 		}
 
 		// TODO - START
 	}
 
-	private Cord[] getCords() {
+	private Cord[] cords() {
 
 		var cords = new Cord[gpspoints.length];
 
@@ -142,7 +141,7 @@ public class ShowRoute extends EasyGraphics {
 		for (int i = 1; i < cords.length; i++) {
 			speed = (int)(timescaling * gpscomputer.speeds()[i-1] / gpscomputer.maxSpeed());
 			if (speed < 1) speed = 1;
-			setSpeed(speed); // avhenger av maskinen osv, blir ikke riktig uansett
+			setSpeed(speed); // metoden avhenger av maskinen osv, blir ikke riktig uansett
 			move(blue, cords[i].x, cords[i].y);
 		}
 
@@ -150,13 +149,12 @@ public class ShowRoute extends EasyGraphics {
 	}
 
 	private static class Cord {
-		public int x;
-		public int y;
+		private int x;
+		private int y;
 
-		public Cord(int x, int y) {
+		private Cord(int x, int y) {
 			this.x = x;
 			this.y = y;
 		}
 	}
-
 }
