@@ -19,6 +19,14 @@ public class ShowRoute extends EasyGraphics {
 	private GPSPoint[] gpspoints;
 	private GPSComputer gpscomputer;
 	private Cord[] cords;
+
+	private double maxlon;
+	private double minlon;
+	private double maxlat;
+	private double minlat;
+
+	private double xstep;
+	private double ystep;
 	
 	public ShowRoute() {
 
@@ -27,6 +35,15 @@ public class ShowRoute extends EasyGraphics {
 
 		gpspoints = gpscomputer.getGPSPoints();
 
+		maxlon = GPSUtils.findMax(GPSUtils.getLongitudes(gpspoints));
+		minlon = GPSUtils.findMin(GPSUtils.getLongitudes(gpspoints));
+		maxlat = GPSUtils.findMax(GPSUtils.getLatitudes(gpspoints));
+		minlat = GPSUtils.findMin(GPSUtils.getLatitudes(gpspoints));
+
+		xstep = xstep();
+		ystep = ystep();
+
+		cords = getCords();
 	}
 
 	public static void main(String[] args) {
@@ -37,18 +54,15 @@ public class ShowRoute extends EasyGraphics {
 
 		makeWindow("Route", MAPXSIZE + 2 * MARGIN, MAPYSIZE + 2 * MARGIN + STATSSIZE);
 
-		showRouteMap(MARGIN + MAPYSIZE);
+		showRouteMap();
 
 		showStatistics();
 
-		playRoute(MARGIN + MAPYSIZE);
+		playRoute();
 	}
 
 	// antall x-pixels per lengdegrad
 	public double xstep() {
-
-		double maxlon = GPSUtils.findMax(GPSUtils.getLongitudes(gpspoints));
-		double minlon = GPSUtils.findMin(GPSUtils.getLongitudes(gpspoints));
 
 		return MAPXSIZE / (Math.abs(maxlon - minlon));
 	}
@@ -58,41 +72,21 @@ public class ShowRoute extends EasyGraphics {
 		
 		// TODO - START
 
-		double maxlat = GPSUtils.findMax(GPSUtils.getLatitudes(gpspoints));
-		double minlat = GPSUtils.findMin(GPSUtils.getLatitudes(gpspoints));
-
 		return MAPYSIZE / (Math.abs(maxlat - minlat));
 
 		// TODO - SLUTT
 		
 	}
 
-	public void showRouteMap(int ybase) {
+	public void showRouteMap() {
 
 		// TODO - START
 
-		double xstep = xstep();
-		double ystep = ystep();
-
-		double maxlon = GPSUtils.findMax(GPSUtils.getLongitudes(gpspoints));
-		double maxlat = GPSUtils.findMax(GPSUtils.getLatitudes(gpspoints));
-
-		double x;
-		double y;
-
 		setColor(Color.green);
-
-		cords = new Cord[gpspoints.length];
-
-		for (int i = 0; i < gpspoints.length; i++) {
-			x = (GPSUtils.getLongitudes(gpspoints)[i] - maxlon) * xstep + MAPXSIZE + MARGIN;
-			y = (GPSUtils.getLatitudes(gpspoints)[i] - maxlat) * ystep + MAPYSIZE + MARGIN + STATSSIZE;
-			cords[i] = new Cord((int)x, (int)y);
-		}
 
 		for (int i = 0; i < cords.length; i++) {
 			fillCircle(cords[i].x, cords[i].y, 5);
-			if (i < cords.length -1) {
+			if (i < cords.length-1) {
 				drawLine(cords[i].x, cords[i].y, cords[i+1].x, cords[i+1].y);
 			}
 		}
@@ -100,14 +94,19 @@ public class ShowRoute extends EasyGraphics {
 		// TODO - START
 	}
 
-	class Cord {
-		public int x;
-		public int y;
+	private Cord[] getCords() {
 
-		public Cord(int x, int y) {
-			this.x = x;
-			this.y = y;
+		var cords = new Cord[gpspoints.length];
+
+		double x;
+		double y;
+
+		for (int i = 0; i < gpspoints.length; i++) {
+			x = (GPSUtils.getLongitudes(gpspoints)[i] - maxlon) * xstep + MAPXSIZE + MARGIN;
+			y = (GPSUtils.getLatitudes(gpspoints)[i] - maxlat) * ystep + MAPYSIZE + MARGIN + STATSSIZE;
+			cords[i] = new Cord((int) x, (int) y);
 		}
+		return cords;
 	}
 
 	public void showStatistics() {
@@ -125,17 +124,16 @@ public class ShowRoute extends EasyGraphics {
 			drawString(line, MARGIN, y);
 			y+= TEXTDISTANCE;
 		}
-		//drawString(gpscomputer.displayStatistics(), 20, 20);
 
 		// TODO - SLUTT;
 	}
 
-	public void playRoute(int ybase) {
+	public void playRoute() {
 
 		// TODO - START
 
 		System.out.println("Angi tidsskalering i tegnevinduet ...");
-		int timescaling = Integer.parseInt(getText("Tidsskalering (1-10)"));
+		int timescaling = Integer.parseInt(getText("Tidsskalering")) / 10; // i praksis er det 10-100
 		if (timescaling > 10) timescaling = 10;
 
 		setColor(Color.blue);
@@ -149,6 +147,16 @@ public class ShowRoute extends EasyGraphics {
 		}
 
 		// TODO - SLUTT
+	}
+
+	private static class Cord {
+		public int x;
+		public int y;
+
+		public Cord(int x, int y) {
+			this.x = x;
+			this.y = y;
+		}
 	}
 
 }
